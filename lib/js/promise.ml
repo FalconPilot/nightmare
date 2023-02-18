@@ -20,13 +20,17 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE. *)
 
-module Aliases = Aliases
-include Aliases
-module Bindings = Bindings
-module Interfaces = Interfaces
-module Optional = Optional
-module Option = Optional.Option
-module Nullable = Optional.Nullable
-module Undefinable = Optional.Undefinable
-module Promise = Promise
-module Console = Console
+open Js_of_ocaml
+
+type error = Bindings.promise_error Js.t
+
+include Preface.Make.Monad.Via_return_and_bind (struct
+  type 'a t = 'a Bindings.promise Js.t
+
+  let return value = Js.Unsafe.global##_CAMLPromiseResolve value
+
+  let bind f promise =
+    let handler = Js.wrap_callback f in
+    Js.Unsafe.global##_CAMLPromiseThen promise handler
+  ;;
+end)

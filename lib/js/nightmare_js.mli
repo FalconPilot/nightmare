@@ -48,6 +48,10 @@ module Option = Optional.Option
 module Nullable = Optional.Nullable
 module Undefinable = Optional.Undefinable
 
+(** {1 Common JS bindings} *)
+
+module Promise = Promise
+
 (** {1 Utils} *)
 
 module Console = Console

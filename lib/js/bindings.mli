@@ -44,3 +44,21 @@ class type console_hook =
 
 (** Retreive the console implementation. *)
 external get_console : unit -> console_hook t = "caml_js_get_console"
+
+(** {1 Promise Bindings} *)
+
+type promise_error
+
+(** Javascript object. *)
+class type ['a] promise =
+  object
+    method catch :
+      (promise_error t -> 'a promise t) callback -> 'a promise t meth
+
+    method finally : (unit -> unit) callback -> unit meth
+
+    method then_ :
+      ('a -> 'b promise t) callback
+      -> (promise_error t -> 'b promise t) callback optdef
+      -> 'b promise t meth
+  end

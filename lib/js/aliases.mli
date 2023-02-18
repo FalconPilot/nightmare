@@ -30,3 +30,6 @@ type +'a or_null = 'a Js_of_ocaml.Js.opt
 
 (** An alias over [Js.Optdef.t]. *)
 type +'a or_undefined = 'a Js_of_ocaml.Js.optdef
+
+(** An alias over [Promise.t] *)
+type 'a promise = 'a Promise.t

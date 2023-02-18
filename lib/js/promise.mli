@@ -20,13 +20,15 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE. *)
 
-module Aliases = Aliases
-include Aliases
-module Bindings = Bindings
-module Interfaces = Interfaces
-module Optional = Optional
-module Option = Optional.Option
-module Nullable = Optional.Nullable
-module Undefinable = Optional.Undefinable
-module Promise = Promise
-module Console = Console
+(** A very lightweight binding of the Promise API (under development),
+    essentially to communicate with JavaScript APIs that return promises. *)
+
+(** {1 Types} *)
+
+(** A types that describes a promise with ['a] as a normal form. *)
+type 'a t
+
+(** A types that describes a JavaScript error on promise side. *)
+type error
+
+include Preface.Specs.MONAD with type 'a t := 'a t (** @inline *)
